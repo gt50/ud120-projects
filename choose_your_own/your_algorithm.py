@@ -30,15 +30,32 @@ plt.show()
 
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
+def try_algorithm(type):
+    clf = type
+    clf.fit(features_train, labels_train)
+    pred = clf.predict(features_test)
+    accuracy = accuracy_score(labels_test, pred)
+    print type, " accuracy: ", accuracy
 
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn import svm
+from sklearn import naive_bayes
+from sklearn import tree
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+print "features: ", len(features_train[0])
+print "rows: ", len(features_train)
 
+#clf = AdaBoostClassifier()
+try_algorithm(AdaBoostClassifier())
+try_algorithm(svm.SVC())
+try_algorithm(naive_bayes.GaussianNB())
+try_algorithm(tree.DecisionTreeClassifier())
+try_algorithm(RandomForestClassifier())
+try_algorithm(KNeighborsClassifier())
 
-
-
-
-
-
-try:
-    prettyPicture(clf, features_test, labels_test)
-except NameError:
-    pass
+# try:
+#     prettyPicture(clf, features_test, labels_test)
+# except NameError:
+#     pass
