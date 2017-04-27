@@ -59,12 +59,21 @@ poi, finance_features = targetFeatureSplit( data )
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
 for f1, f2 in finance_features:
-    plt.scatter( f1, f2 )
+    plt.scatter( f1, f2)
 plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
-
+from sklearn.cluster import KMeans
+from operator import itemgetter
+pred = KMeans(n_clusters=2).fit(finance_features).labels_
+finance_features.sort(key=lambda tup:tup[0])
+removed_nan = [i for i in finance_features if i[1] > 0]
+removed_nan_salary = [i for i in finance_features if i[0] > 0]
+print "Max exercised stock options: ", max(removed_nan, key=itemgetter(1))[1]
+print "Min exercised stock options: ", min(removed_nan, key=itemgetter(1))[1]
+print "Max salary: ", max(removed_nan_salary, key=itemgetter(0))[0]
+print "Min salary: ", min(removed_nan_salary, key=itemgetter(0))[0]
 
 
 
