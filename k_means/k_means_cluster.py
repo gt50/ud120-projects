@@ -66,7 +66,12 @@ plt.show()
 ### for the data and store them to a list called pred
 from sklearn.cluster import KMeans
 from operator import itemgetter
+from sklearn import preprocessing
 pred = KMeans(n_clusters=2).fit(finance_features).labels_
+print finance_features
+min_max_scaler = preprocessing.MinMaxScaler()
+finance_features_minmax = min_max_scaler.fit_transform(finance_features)
+print finance_features_minmax
 finance_features.sort(key=lambda tup:tup[0])
 removed_nan = [i for i in finance_features if i[1] > 0]
 removed_nan_salary = [i for i in finance_features if i[0] > 0]
@@ -74,6 +79,7 @@ print "Max exercised stock options: ", max(removed_nan, key=itemgetter(1))[1]
 print "Min exercised stock options: ", min(removed_nan, key=itemgetter(1))[1]
 print "Max salary: ", max(removed_nan_salary, key=itemgetter(0))[0]
 print "Min salary: ", min(removed_nan_salary, key=itemgetter(0))[0]
+print "Salary of $200,000 and exercisted stock options of $1 million rescaled: ", min_max_scaler.transform(numpy.array([[200000,1000000]]))
 
 
 
