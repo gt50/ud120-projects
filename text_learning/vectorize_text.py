@@ -68,6 +68,11 @@ print "emails processed"
 from_sara.close()
 from_chris.close()
 print word_data[152]
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+vectorizer = TfidfVectorizer()
+vectorizer.fit_transform(word_data)
+print vectorizer
 pickle.dump( word_data, open("your_word_data.pkl", "w") )
 pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
